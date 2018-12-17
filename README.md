@@ -1,10 +1,17 @@
 # Log File Analyzer
-Our custom-build server logs different events to a file. Every event has 2 entries in a log - one entry when the event was started and another when the event was finished. The entries in a log file have no specific order (it can occur that a specific event is logged before the event starts)
-Every line in the file is a JSON object containing event data:
-id - the unique event identifier
-state - whether the event was started or finished (can have values "STARTED" or "FINISHED" timestamp - the timestamp of the event in milliseconds
-Application Server logs also have the additional attributes: type - type of log
-host - hostname 
+Its a simple spring boot application that accepts file input over http, process and save the records based the condition mentioned below. It has got an embedded HSQL database manager to query the data in the database.
+
+Flag any long events that take longer than 4ms with a column in the database called "alert" Write the found event details to file-based HSQLDB (http://hsqldb.org/) in the working folder
+The application should a new table if necessary and enter the following values: Event id
+Event duration
+Type and Host if applicable "alert" true is applicable
+
+####At the moment it doesnt support multithreading. The program can handle very large files upto 5GB. 
+
+####Future considerations
+1. Provide multithreading support
+2. Make the application more robust by adding more tests.
+
 
 ####Example log file:
 {"id":"scsmbstgra", "state":"STARTED", "type":"APPLICATION_LOG",
