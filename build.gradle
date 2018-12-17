@@ -1,34 +1,35 @@
-group 'com.test.prabhuj'
-version '1.0-SNAPSHOT'
+buildscript {
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
 
 apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
+group = 'com.test.prabhuj'
+version = '1.0.0'
 sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    compile('org.hsqldb:hsqldb')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.4.RELEASE'
-    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.4.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.4.RELEASE'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.4.RELEASE'
-}
-
-jar {
-    manifest {
-        attributes(
-                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.test.prabhuj.Application'
-        )
-    }
 }
